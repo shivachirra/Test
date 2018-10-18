@@ -1,0 +1,17 @@
+---  
+- hosts: localhost
+  become: yes   
+  tasks:
+   - name: download Couchbase package
+     get_url: url=https://packages.couchbase.com/releases/5.0.1/couchbase-server-community_5.0.1-ubuntu16.04_amd64.deb dest=~/.
+   - name: update the repository 
+     apt: update_cache=yes
+
+   - name: Install dependencies
+     apt: pkg=gdebi-core state=present
+ 
+   - name: Install Couchbase .deb file on all machines
+     shell: dpkg -i ~/couchbase-server-community_5.0.1-ubuntu16.04_amd64.deb
+
+
+ 
